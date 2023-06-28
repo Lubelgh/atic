@@ -4,16 +4,17 @@ from scipy.io import wavfile
 import matplotlib.pyplot as plt
 import pandas as pnd
 
-sample_rate = 44100
-duration = 309
+#sample_rate = 44100
+#duration = 309
 sample_rate, song = wavfile.read('pure_c.wav')
 t = np.arange(song.shape[0])
 print(t)
+
 freq = scip.fft.fftfreq(t.shape[-1])*sample_rate
 realsong = abs(song.real)
 print(freq)
-y  = scip.fft.fft(realsong)
-print (y)
+#y  = scip.fft.fft(realsong)
+#print (y)
 print(song)
 
 
