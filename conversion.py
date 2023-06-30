@@ -17,8 +17,5 @@ for i in range(len(time)):
         for k in range(len(frequency)):
             pixel_map[time[i], amplitude[j]] = (frequency[k] % 255, amplitude[j] % 255, (amplitude[j]*frequency[k]) % 255)
 
-
-
-
-input.save ('grayscale', format = 'png')
+input.save ('converted', format = 'png')
 
