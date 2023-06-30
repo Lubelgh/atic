@@ -1,4 +1,5 @@
 # Read in a WAV and find the freq's
+import numpy
 import pyaudio
 import wave
 import numpy as np
@@ -47,6 +48,8 @@ while len(data) == chunk*swidth*channels:
     if which != len(fftData)-1:
         y0,y1,y2 = np.log(fftData[which-1:which+2:])
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
+        if(numpy.isnan(x1)):
+            x1 = 0
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
         print ("The freq is %f Hz." % (thefreq))
@@ -74,42 +77,11 @@ print(freq)
 print(song)
 
 
-#length = song.shape [0]/ sample_rate
-#time = np.linspace(0., length, song.shape[0])
-#plt.plot(time, song)
-#plt.legend()
-#plt.xlabel('Time (s)')
-#plt.ylabel('Amplitude')
-#plt.show()
-#print (song.shape)
-#array_song = np.array(song)
-#rarray_song = array_song.flatten()
-#new_rarray = np.array_split(rarray_song, 2)
-#a = new_rarray[0]
 audio = 'music.wav'
 x, sr = librosa.load(audio)
 X = librosa.stft(x)
 Xdb = librosa.amplitude_to_db(abs(X))
-#Xdb_one_d = Xdb.flatten ()
-#print (Xdb_one_d.shape)
-#print (Xdb_one_d.shape)
-#print (t.shape)
-#print (thefreq.shape)
-#indeces = np.array(range(len(Xdb_one_d)))
-#remove = np.random.permutation(len(Xdb_one_d))[:len(thefreq_array)]
-#selected = np.in1d(indeces, remove, assume_unique=True)
-#Xdb_one_d_shortened = Xdb_one_d[selected]
-#list_Xdb =Xdb.tolist()
-#list_Xdb2 = list_Xdb [1]
-#list_Xdb2 = list_Xdb2 [: -1]
-#amplitude_in_db = np.array(list_Xdb2)
-#print (amplitude_in_db.shape)
-#print (thefreq_array.shape)
-#Xdb_array = Xdb.reshape (1, len(thefreq_array))
-#print (Xdb_array)
-#t_list = t.tolist ()
 
-#t = np.arange(0, len(amplitude_in_db))
 plt.figure(figsize=(15,3))
 librosa.display.specshow(Xdb, sr=sr, x_axis='time',y_axis='hz')
 plt.colorbar()
